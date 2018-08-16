@@ -1,3 +1,4 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
 'use strict'
 const depictsWholeNumber = require('depicts-whole-number').onlySafeNumbers
@@ -185,3 +186,27 @@ class ObjectFx {
 
 module.exports = ObjectFx
 window.objectFx = ObjectFx
+},{"depicts-whole-number":2}],2:[function(require,module,exports){
+
+const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991
+
+function depictsWholeNumber (v) {
+  if (typeof v === 'string') {
+    return v === '0' || !!/^[1-9][0-9]*$/.exec(v)
+  } else if (typeof v === 'number') {
+    if (!isFinite(v) || ('' + v).indexOf('e') > -1) {
+      return false
+    }
+    return v === Math.abs(Math.round(v))
+  }
+  return false
+}
+
+function onlySafeNumbers (v) {
+  return depictsWholeNumber(v) && v <= MAX_SAFE_INTEGER
+}
+
+module.exports = depictsWholeNumber
+module.exports.onlySafeNumbers = onlySafeNumbers
+
+},{}]},{},[1]);

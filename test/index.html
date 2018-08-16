@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Test</title>
+</head>
+<body>
+  <script src="../bundle.js"></script>
+  <script>
+        var nestedObject = {
+            hello: {
+                world: [1, 2, 3, '!']
+            }
+        }
+
+        var flattened = objectFx.flatten(nestedObject)
+        console.log(flattened)
+        
+        var expanded = objectFx.expand(flattened)
+        console.log(expanded)
+        
+        var nestedObject = {
+            lets: {
+                count: [1, 2, 3, '...']
+            },
+            Is: {
+                this: {
+                    deeply: {
+                        nested: {
+                        '?': 'YEES!!!'
+                        }
+                    }
+                }
+            }
+        }
+
+        var flattened = objectFx.flatten(nestedObject, { ExplicitArrays: true, MaxDepth: 3 })
+        console.log(flattened)
+        
+        var flatObject = {
+            'lets.count[0]': 1,
+            'lets.count[1]': 2,
+            'lets.count[2]': 3,
+            'lets.count[3]': '...',
+            'Is.this.deeply.nested.?': 'YEES!!!'
+        }
+
+        var expanded = objectFx.expand(flatObject, { ExplicitArrays: true })
+        console.log(expanded)
+  </script>
+</body>
+</html>
